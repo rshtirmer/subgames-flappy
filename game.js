@@ -984,7 +984,7 @@
     const SDKClass = typeof SubGames !== 'undefined' && SubGames.SubGamesSDK;
     if (SDKClass) {
       try {
-        sdkInstance = SDKClass.init({ gameKey: 'e0239188-ddde-4cfe-9b8c-72dc5480ef18' });
+        sdkInstance = SDKClass.init({ gameKey: 'e0239188-ddde-4cfe-9b8c-72dc5480ef18', overlay: true });
         sdkInstance.on('pause', () => { gamePaused = true; });
         sdkInstance.on('unpause', () => { gamePaused = false; });
         sdkInstance.on('tierChange', () => { updateLockStates(); });
