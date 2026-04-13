@@ -1,0 +1,383 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --font: 'Fredoka', sans-serif;
+  --radius: 14px;
+  --shadow: 0 6px 28px rgba(0, 0, 0, 0.35);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #111;
+  font-family: var(--font);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Container ── */
+#game-container {
+  position: relative;
+  overflow: hidden;
+}
+
+#game-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: auto;
+}
+
+/* ── Screens ── */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+}
+
+.tap-target {
+  cursor: pointer;
+}
+
+/* ── Title ── */
+#title-screen {
+  gap: 36px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 100%);
+}
+
+.title-group {
+  text-align: center;
+}
+
+.game-title {
+  font-size: 64px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow:
+    3px 3px 0 #e65100,
+    6px 6px 0 rgba(0,0,0,0.25);
+  line-height: 1;
+  letter-spacing: 2px;
+}
+
+.game-title span {
+  color: #FFD54F;
+  font-size: 72px;
+}
+
+.subtitle {
+  margin-top: 12px;
+  color: rgba(255,255,255,0.7);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.subtitle strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── Level Select ── */
+#level-screen {
+  gap: 16px;
+  padding: 24px 18px;
+  justify-content: flex-start;
+  padding-top: 48px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+.screen-heading {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+  margin-bottom: 4px;
+  letter-spacing: 2px;
+}
+
+#level-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.level-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  padding: 10px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.level-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card-preview {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.level-bg-0 {
+  background: linear-gradient(180deg, #87CEEB 0%, #B2EBF2 50%, #A5D6A7 100%);
+}
+
+.level-bg-1 {
+  background: linear-gradient(180deg, #0D0221 0%, #6B2FA0 50%, #FF6B35 100%);
+}
+
+.level-bg-2 {
+  background: linear-gradient(180deg, #0A0A1A 0%, #0D0D3D 50%, #1a1a4e 100%);
+  box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.15);
+}
+
+.card-badge {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 2px 8px;
+  border-radius: 6px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.badge-free {
+  background: rgba(76, 175, 80, 0.7);
+}
+
+.badge-paid {
+  background: rgba(255, 64, 129, 0.7);
+}
+
+.card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-info h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sparkle {
+  color: #FFD54F;
+  font-size: 13px;
+}
+
+.card-tier {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  margin-top: 2px;
+}
+
+.card-best {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 2px;
+}
+
+/* ── Death Screen ── */
+#death-screen {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.score-card {
+  background: rgba(30, 30, 40, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 32px 36px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  min-width: 260px;
+}
+
+.game-over-text {
+  font-size: 32px;
+  font-weight: 700;
+  color: #FF5252;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+  letter-spacing: 3px;
+}
+
+.score-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.score-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 2px;
+}
+
+.score-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.death-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+/* ── Buttons ── */
+.btn {
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 28px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: transform 0.12s, box-shadow 0.12s, background 0.2s;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn-primary {
+  background: #FF6D00;
+  color: #fff;
+  box-shadow: 0 4px 0 #BF360C, 0 6px 16px rgba(0,0,0,0.3);
+}
+
+.btn-primary:hover {
+  background: #FF8F00;
+}
+
+.btn-primary:active {
+  box-shadow: 0 2px 0 #BF360C, 0 3px 8px rgba(0,0,0,0.3);
+  transform: translateY(2px) scale(0.98);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.btn-play {
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  background: #4CAF50;
+  color: #fff;
+  box-shadow: 0 3px 0 #2E7D32;
+}
+
+.btn-play:hover {
+  background: #66BB6A;
+}
+
+.btn-locked {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-locked:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.lock-icon {
+  font-size: 12px;
+}
+
+.btn-play.unlocked {
+  background: #4CAF50;
+  color: #fff;
+  box-shadow: 0 3px 0 #2E7D32;
+}
+
+/* ── Animations ── */
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.new-best {
+  animation: newBest 0.6s ease-out;
+  color: #FFD54F !important;
+}
+
+@keyframes newBest {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* ── Responsive ── */
+@media (max-height: 600px) {
+  #level-screen { padding-top: 24px; gap: 10px; }
+  .card-preview { width: 64px; height: 64px; }
+  .game-title { font-size: 48px; }
+  .game-title span { font-size: 54px; }
+}

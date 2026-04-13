@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Flappy Tiers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://sdk.sub.games/" defer></script>
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="game-canvas"></canvas>
+
+    <!-- Title Screen -->
+    <div id="title-screen" class="screen">
+      <div class="title-group">
+        <h1 class="game-title">FLAPPY<br><span>TIERS</span></h1>
+        <p class="subtitle">Powered by <strong>sub.games</strong></p>
+      </div>
+      <button id="play-btn" class="btn btn-primary pulse">PLAY</button>
+    </div>
+
+    <!-- Level Select -->
+    <div id="level-screen" class="screen hidden">
+      <h2 class="screen-heading">SELECT LEVEL</h2>
+      <div id="level-cards">
+        <div class="level-card" data-level="0">
+          <div class="card-preview level-bg-0">
+            <div class="card-badge">FREE</div>
+          </div>
+          <div class="card-info">
+            <h3>Sunny Meadow</h3>
+            <p class="card-tier">Free to Play</p>
+            <p class="card-best">Best: <span class="best-0">0</span></p>
+          </div>
+          <button class="btn btn-play" data-level="0">PLAY</button>
+        </div>
+        <div class="level-card" data-level="1">
+          <div class="card-preview level-bg-1">
+            <div class="card-badge badge-free">FREE SUB</div>
+          </div>
+          <div class="card-info">
+            <h3>Enchanted Dusk <span class="sparkle">&#10024;</span></h3>
+            <p class="card-tier">Free Subscription</p>
+            <p class="card-best">Best: <span class="best-1">0</span></p>
+          </div>
+          <button class="btn btn-play btn-locked" data-level="1">
+            <span class="lock-icon">&#x1F512;</span> UNLOCK
+          </button>
+        </div>
+        <div class="level-card" data-level="2">
+          <div class="card-preview level-bg-2">
+            <div class="card-badge badge-paid">SUPPORTER</div>
+          </div>
+          <div class="card-info">
+            <h3>Neon Void <span class="sparkle">&#10024;&#10024;</span></h3>
+            <p class="card-tier">Paid Subscription</p>
+            <p class="card-best">Best: <span class="best-2">0</span></p>
+          </div>
+          <button class="btn btn-play btn-locked" data-level="2">
+            <span class="lock-icon">&#x1F512;</span> UNLOCK
+          </button>
+        </div>
+      </div>
+      <button id="back-btn" class="btn btn-secondary">&larr; BACK</button>
+    </div>
+
+    <!-- Death / Score Screen -->
+    <div id="death-screen" class="screen hidden">
+      <div class="score-card">
+        <h2 class="game-over-text">GAME OVER</h2>
+        <div class="score-rows">
+          <div class="score-row">
+            <span class="score-label">SCORE</span>
+            <span id="final-score" class="score-value">0</span>
+          </div>
+          <div class="score-row">
+            <span class="score-label">BEST</span>
+            <span id="best-score" class="score-value">0</span>
+          </div>
+        </div>
+        <div class="death-buttons">
+          <button id="retry-btn" class="btn btn-primary">RETRY</button>
+          <button id="levels-btn" class="btn btn-secondary">LEVELS</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Get Ready overlay (canvas-rendered, but needs a tap target) -->
+    <div id="ready-screen" class="screen hidden tap-target"></div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

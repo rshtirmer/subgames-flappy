@@ -1,0 +1,10 @@
+{
+  "name": "flappy-tiers",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Flappy Bird with tier-gated levels — a sub.games showcase",
+  "scripts": {
+    "dev": "npx serve . -l 3000 --no-clipboard",
+    "build": "echo 'Static site — no build needed'"
+  }
+}
